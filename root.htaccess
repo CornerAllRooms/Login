@@ -1,0 +1,7 @@
+# Prevent direct URL access to subfolders
+RewriteEngine On
+RewriteRule ^menu_and_logged_in/(CR@fitness|Ai_trainer_free_trial)/ - [F,L]
+
+# Allow only through log_in.html referrer
+RewriteCond %{HTTP_REFERER} !/menu_and_logged_in/log_in.html [NC]
+RewriteRule ^menu_and_logged_in/(CR@fitness|Ai_trainer_free_trial)/ - [F,L]

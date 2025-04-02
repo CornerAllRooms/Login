@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+   <head>
+   
+   <!-- add icon link -->
+   <link rel="icon" href=
+   "logo.png"
+   type="image/x-icon" />
+      <rel = "stylesheet" href="style.css">
+      <body>
+
+<div class="background-image"></div>
+
+
+      </body>
+         <meta name="viewport"
+         content="width=device-width, initial-scale=1"> 
+
+
+      <style>
+         *{
+               margin: 0;
+               padding: 0;
+
+         }
+         .background-image {
+            background-image: url('./ground.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 28vh;
+         }
+      </style>
+   </head>
+       <form name="PayFastPayNowForm" action="https://payment.payfast.io/eng/process" method="post">
+           <input required type="hidden" name="cmd" value="_paynow">
+         <input required type="hidden" name="receiver" pattern="[0-9]" value="23908197">
+          <input type="hidden" name="return_url" value="Https://cornerroom.co.za">
+<input type="hidden" name="cancel_url" value="Https://cornerroom.co.za">
+<input type="hidden" name="notify_url" value="Https://cornerroom.co.za/AITrainer/brBFoydeF">
+<input required type="hidden" name="amount" value="0.00">
+<input required type="hidden" name="item_name" maxlength="255" value="Ai Trainer">
+<input required type="hidden" name="subscription_type" pattern="1"value="1">
+<input type="hidden" name="recurring_amount" value="49.99">
+<input required type="hidden" name="cycles" pattern="[0-9]" value="0">
+<input required type="hidden" name="frequency" pattern="[0-9]" value="3">
+<table>
+<tr>
+   <td colspan=2 align="right">
+<input type="image" src="https://my.payfast.io/images/buttons/Subscribe/Light-Large-Subscribe.png" alt="Subscribe" title="Subscribe with Payfast"></td>
+<h1 class="titles" style="color:#004b49;" class="titles"style="text-align:bottom;">Powered By Payfast</h1>
+</tr>
+</table>
+</form>
+</html>
