@@ -70,7 +70,7 @@
                 <label for="password"></label>
             </div>
             <p class="recover">
-                <a href="#">Recover Password</a>
+                <a href=: "<%= process.env.VITE_FIREBASE_AUTH_DOMAIN %">Recover Password</a>
             </p>
             <input type="submit" class="btn" value="Sign In" name="signIn">
         </form>
@@ -103,6 +103,7 @@
         }
     </script>
 
+    <!-- All your original scripts remain untouched -->
     <script src="script.js"></script>
     <script src="google.js"></script>
     <script src="goo.js"></script>
@@ -116,17 +117,18 @@
     <!-- Facebook SDK -->
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 
-    <!-- Include Google OAuth client library -->
+    <!-- Google OAuth client library -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <!-- Your custom JS -->
-    <script src="auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.0/firebase.js"></script>
+
+    <!-- Firebase (now using .env) -->
     <script>
-        var config = {
-            apiKey: "AIzaSyC3gAW9H1JOaY2TSqgSvHsAlU3du5LbkPc",
-            authDomain: "roomie-454014.firebaseapp.com",
+    document.getElementById('recovered').addEventListener('onclick', () => {
+        // Load Firebase config from environment variables
+        const firebaseConfig = {
+            apiKey: "<%= process.env.VITE_FIREBASE_API_KEY %>",
+            authDomain: "<%= process.env.VITE_FIREBASE_AUTH_DOMAIN %>",
         };
-        firebase.initializeApp(config);
+        firebase.initializeApp(firebaseConfig);
     </script>
 </body>
 </html>

@@ -1,9 +1,10 @@
+
 document.getElementById('google-login').addEventListener('click', handleGoogleLogin);
 
 function handleGoogleLogin() {
     // Initialize Google OAuth client
     const client = google.accounts.oauth2.initTokenClient({
-        client_id: '940299451426-3eqoo89edvkf42l00fs4dn5i5unis2dm.apps.googleusercontent.com', // Replace with your actual Client ID
+        client_id: process.env.VITE_GOOGLE_CLIENT_ID, // From .env
         scope: 'email profile openid',
         callback: async (response) => {
             if (response.error) {
@@ -13,7 +14,7 @@ function handleGoogleLogin() {
             
             // Send the token to your backend for verification
             try {
-                const res = await fetch('/auth/google', {
+                const res = await fetch(process.env.VITE_BACKEND_AUTH_ENDPOINT, { // From .env
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ token: response.access_token }),

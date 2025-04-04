@@ -1,0 +1,155 @@
+[33mcommit 010deb3de5ea5482df84090c784dd92f159a2386[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m
+Author: cornerallrooms <Cornerallrooms@gmail.com>
+Date:   Wed Apr 2 20:24:17 2025 +0200
+
+    Your commit message
+
+ .gitignore                     |   24 [32m+[m
+ Auth.js                        |   40 [32m+[m
+ Auth.php                       |    6 [32m+[m
+ Facebook.js                    |   17 [32m+[m
+ Google.js                      |   38 [32m+[m
+ Logo.png                       |  Bin [31m0[m -> [32m52510[m bytes
+ app.js                         |   30 [32m+[m
+ connect.php                    |   11 [32m+[m
+ dynamic_image.php              |   21 [32m+[m
+ goo.js                         |   25 [32m+[m
+ google2.js                     |   34 [32m+[m
+ homepage.css                   |   26 [32m+[m
+ homepage.php                   |  111 [32m+[m
+ index.html                     |  132 [32m+[m
+ logout.php                     |    4 [32m+[m
+ .../CR@fitness/Abdominals.html |  186 [32m+[m
+ .../CR@fitness/Biceps.html     |  224 [32m+[m
+ .../CR@fitness/Calves.html     |  142 [32m+[m
+ .../CR@fitness/Chest.html      |  256 [32m+[m
+ ...levated Pike Press Side.gif |  Bin [31m0[m -> [32m8676323[m bytes
+ .../Elevated Pike Press.gif    |  Bin [31m0[m -> [32m9914301[m bytes
+ ...ike Shoulder Shrug Side.gif |  Bin [31m0[m -> [32m7031989[m bytes
+ ...ted Pike Shoulder Shrug.gif |  Bin [31m0[m -> [32m8737312[m bytes
+ .../CR@fitness/Forearms.html   |  222 [32m+[m
+ .../CR@fitness/Glutes.html     |  209 [32m+[m
+ .../CR@fitness/Hamstrings.html |  174 [32m+[m
+ .../CR@fitness/Lats.html       |  140 [32m+[m
+ .../CR@fitness/Logo.png        |  Bin [31m0[m -> [32m52510[m bytes
+ .../CR@fitness/LowerBack.html  |  144 [32m+[m
+ .../CR@fitness/Obliques.html   |   84 [32m+[m
+ .../CR@fitness/Quads.html      |  198 [32m+[m
+ .../CR@fitness/Shoulder.html   |  233 [32m+[m
+ .../Traps(Mid-back).html       |  175 [32m+[m
+ .../CR@fitness/Triceps.html    |  243 [32m+[m
+ ...ll-wristcurl-male-front.gif |  Bin [31m0[m -> [32m9304585[m bytes
+ ...ell-wristcurl-male-side.gif |  Bin [31m0[m -> [32m11041031[m bytes
+ .../CR@fitness/directory.html  | 1876 [32m++++++++[m
+ .../CR@fitness/fade.js         |   19 [32m+[m
+ .../CR@fitness/index.html      |  211 [32m+[m
+ ...nch-press-front_C2G7O8r.gif |  Bin [31m0[m -> [32m5959725[m bytes
+ ...ench-press-side_giVNk12.gif |  Bin [31m0[m -> [32m2433571[m bytes
+ ...ell-bent-over-row-front.gif |  Bin [31m0[m -> [32m1855468[m bytes
+ ...bell-bent-over-row-side.gif |  Bin [31m0[m -> [32m3434260[m bytes
+ ...rbell-calve-raise-front.gif |  Bin [31m0[m -> [32m8566278[m bytes
+ ...bell-curl-front_uKPCb8P.gif |  Bin [31m0[m -> [32m4949028[m bytes
+ ...rbell-curl-side_NN1ZFmi.gif |  Bin [31m0[m -> [32m5190406[m bytes
+ ...-barbell-deadlift-front.gif |  Bin [31m0[m -> [32m6527542[m bytes
+ ...e-barbell-deadlift-side.gif |  Bin [31m0[m -> [32m8502106[m bytes
+ ...ell-highbar-squat-front.gif |  Bin [31m0[m -> [32m6162054[m bytes
+ ...hbar-squat-side_bU7Qudy.gif |  Bin [31m0[m -> [32m7488516[m bytes
+ ...ncline-bench-press-side.gif |  Bin [31m0[m -> [32m3098006[m bytes
+ ...tricep-extensions-front.gif |  Bin [31m0[m -> [32m12346291[m bytes
+ ...ead-press-front_OJMNLxU.gif |  Bin [31m0[m -> [32m2222529[m bytes
+ ...head-press-side_rFqqcjI.gif |  Bin [31m0[m -> [32m2404348[m bytes
+ ...erse-curl-front_ysdi82M.gif |  Bin [31m0[m -> [32m5036005[m bytes
+ ...verse-curl-side_EGHsY3f.gif |  Bin [31m0[m -> [32m5230809[m bytes
+ ...llcrusher-front_qpHWUa8.gif |  Bin [31m0[m -> [32m7523032[m bytes
+ ...ullcrusher-side_B7Z6225.gif |  Bin [31m0[m -> [32m5428803[m bytes
+ ...-deadlift-front_aeM2BqT.gif |  Bin [31m0[m -> [32m5204839[m bytes
+ ...o-deadlift-side_av3A2PM.gif |  Bin [31m0[m -> [32m6232399[m bytes
+ ...right-row-front_3ROsKgm.gif |  Bin [31m0[m -> [32m4854040[m bytes
+ ...pright-row-side_NBzD3il.gif |  Bin [31m0[m -> [32m5217630[m bytes
+ ...arian-split-squat-front.gif |  Bin [31m0[m -> [32m5097069[m bytes
+ ...garian-split-squat-side.gif |  Bin [31m0[m -> [32m6343689[m bytes
+ ...eight-calve-raise-front.gif |  Bin [31m0[m -> [32m8718427[m bytes
+ ...weight-calve-raise-side.gif |  Bin [31m0[m -> [32m8484766[m bytes
+ ...bodyweight-chinup-front.gif |  Bin [31m0[m -> [32m6490741[m bytes
+ ...-bodyweight-chinup-side.gif |  Bin [31m0[m -> [32m6392982[m bytes
+ ...bodyweight-crunch-front.gif |  Bin [31m0[m -> [32m2330995[m bytes
+ ...-bodyweight-crunch-side.gif |  Bin [31m0[m -> [32m1497851[m bytes
+ ...ht-diamond-pushup-front.gif |  Bin [31m0[m -> [32m9108863[m bytes
+ ...ght-diamond-pushup-side.gif |  Bin [31m0[m -> [32m8765629[m bytes
+ ...e-bodyweight-dips-front.gif |  Bin [31m0[m -> [32m4943035[m bytes
+ ...le-bodyweight-dips-side.gif |  Bin [31m0[m -> [32m6498374[m bytes
+ ...eight-forarm-plank-side.gif |  Bin [31m0[m -> [32m1331350[m bytes
+ ...ght-forearm-plank-front.gif |  Bin [31m0[m -> [32m127020[m bytes
+ ...ght-forward-lunge-front.gif |  Bin [31m0[m -> [32m11488230[m bytes
+ ...ight-forward-lunge-side.gif |  Bin [31m0[m -> [32m10893307[m bytes
+ ...ight-glute-bridge-front.gif |  Bin [31m0[m -> [32m10603171[m bytes
+ ...eight-glute-bridge-side.gif |  Bin [31m0[m -> [32m11635892[m bytes
+ ...ht-incline-pushup-front.gif |  Bin [31m0[m -> [32m6902104[m bytes
+ ...ght-incline-pushup-side.gif |  Bin [31m0[m -> [32m6090323[m bytes
+ ...weight-leg-raises-front.gif |  Bin [31m0[m -> [32m1456545[m bytes
+ ...yweight-leg-raises-side.gif |  Bin [31m0[m -> [32m1455813[m bytes
+ ...bodyweight-pullup-front.gif |  Bin [31m0[m -> [32m7975871[m bytes
+ ...-bodyweight-pullup-side.gif |  Bin [31m0[m -> [32m7853430[m bytes
+ ...bodyweight-pushup-front.gif |  Bin [31m0[m -> [32m12271047[m bytes
+ ...-bodyweight-pushup-side.gif |  Bin [31m0[m -> [32m10843890[m bytes
+ ...-bodyweight-squat-front.gif |  Bin [31m0[m -> [32m6751040[m bytes
+ ...e-bodyweight-squat-side.gif |  Bin [31m0[m -> [32m6566175[m bytes
+ ...weight-tricep-dips-side.gif |  Bin [31m0[m -> [32m2102246[m bytes
+ ...mbbell-calf-raise-front.gif |  Bin [31m0[m -> [32m3153801[m bytes
+ ...umbbell-calf-raise-side.gif |  Bin [31m0[m -> [32m5675177[m bytes
+ ...ale-dumbbell-curl-front.gif |  Bin [31m0[m -> [32m4289031[m bytes
+ ...male-dumbbell-curl-side.gif |  Bin [31m0[m -> [32m6291453[m bytes
+ ...bell-goblet-squat-front.gif |  Bin [31m0[m -> [32m1814420[m bytes
+ ...bbell-goblet-squat-side.gif |  Bin [31m0[m -> [32m1660820[m bytes
+ ...mmer-curl-front_JbvhNLU.gif |  Bin [31m0[m -> [32m3651021[m bytes
+ ...ammer-curl-side_io6oHN7.gif |  Bin [31m0[m -> [32m6141807[m bytes
+ ...cline-bench-press-front.gif |  Bin [31m0[m -> [32m1440806[m bytes
+ ...ncline-bench-press-side.gif |  Bin [31m0[m -> [32m1493505[m bytes
+ ...ncline-chest-flys-front.gif |  Bin [31m0[m -> [32m1515558[m bytes
+ ...incline-chest-flys-side.gif |  Bin [31m0[m -> [32m1349607[m bytes
+ ...ell-lateral-raise-front.gif |  Bin [31m0[m -> [32m5243018[m bytes
+ ...bell-lateral-raise-side.gif |  Bin [31m0[m -> [32m6254243[m bytes
+ ...-tricep-extension-front.gif |  Bin [31m0[m -> [32m5959300[m bytes
+ ...d-tricep-extension-side.gif |  Bin [31m0[m -> [32m6166884[m bytes
+ ...bell-reverse-curl-front.gif |  Bin [31m0[m -> [32m3935465[m bytes
+ ...bbell-reverse-curl-side.gif |  Bin [31m0[m -> [32m5842453[m bytes
+ ...ll-row-unilateral-front.gif |  Bin [31m0[m -> [32m5117618[m bytes
+ ...ell-russian-twist-front.gif |  Bin [31m0[m -> [32m3272470[m bytes
+ ...bell-russian-twist-side.gif |  Bin [31m0[m -> [32m4255636[m bytes
+ ...ed-overhead-press-front.gif |  Bin [31m0[m -> [32m1628242[m bytes
+ ...ted-overhead-press-side.gif |  Bin [31m0[m -> [32m1722783[m bytes
+ ...mbbell-wrist-curl-front.gif |  Bin [31m0[m -> [32m6284904[m bytes
+ ...umbbell-wrist-curl-side.gif |  Bin [31m0[m -> [32m6638432[m bytes
+ ...l-wrist-extension-front.gif |  Bin [31m0[m -> [32m5114292[m bytes
+ ...ion-side-ezgif.com-crop.gif |  Bin [31m0[m -> [32m5289954[m bytes
+ ...ll-wrist-extension-side.gif |  Bin [31m0[m -> [32m5123578[m bytes
+ .../CR@fitness/script.js       |   21 [32m+[m
+ .../CR@fitness/style.css       |  154 [32m+[m
+ menu_and_logged_in/Load.gif    |  Bin [31m0[m -> [32m2163036[m bytes
+ menu_and_logged_in/Logo.png    |  Bin [31m0[m -> [32m52510[m bytes
+ menu_and_logged_in/accept.js   |   10 [32m+[m
+ .../Ground.png                 |  Bin [31m0[m -> [32m227681[m bytes
+ .../Logo.png                   |  Bin [31m0[m -> [32m52510[m bytes
+ .../index.html                 |   54 [32m+[m
+ .../root.htaccess              |    0
+ .../style.css                  |    3 [32m+[m
+ menu_and_logged_in/fitness.mp4 |  Bin [31m0[m -> [32m42771614[m bytes
+ .../folder_router.php          |   39 [32m+[m
+ menu_and_logged_in/load.css    |   54 [32m+[m
+ menu_and_logged_in/load.js     |   14 [32m+[m
+ menu_and_logged_in/log_in.html |  238 [32m+[m
+ menu_and_logged_in/main.js     |   36 [32m+[m
+ menu_and_logged_in/menu.css    |  126 [32m+[m
+ menu_and_logged_in/screen.js   |   19 [32m+[m
+ menu_and_logged_in/script.js   |   14 [32m+[m
+ menu_and_logged_in/style.css   |   18 [32m+[m
+ menu_and_logged_in/styles.css  |   69 [32m+[m
+ package.json                   |    7 [32m+[m
+ register.php                   |   50 [32m+[m
+ root.htaccess                  |    7 [32m+[m
+ script.js                      |   13 [32m+[m
+ secure_router.php              |   24 [32m+[m
+ server.js                      |    7 [32m+[m
+ style.css                      |  201 [32m+[m
+ untitled.js                    |   34 [32m+[m
+ 148 files changed, 6467 insertions(+)

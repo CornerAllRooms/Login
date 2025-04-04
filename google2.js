@@ -1,3 +1,5 @@
+
+require('dotenv').config(); // Load environment variables
 const express = require('express');
 const { OAuth2Client } = require('google-auth-library');
 const cors = require('cors');
@@ -7,14 +9,14 @@ const app = express();
 app.use(cors()); // Allow frontend requests
 app.use(bodyParser.json());
 
-const client = new OAuth2Client('EKWUpggsVtWYavwJTzwdWtvtXO5U99zB'); // Replace with your Client ID
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID); // From .env
 
 app.post('/auth/google', async (req, res) => {
     const { token } = req.body;
     try {
         const ticket = await client.verifyIdToken({
             idToken: token,
-            audience: 'EKWUpggsVtWYavwJTzwdWtvtXO5U99zB',
+            audience: process.env.GOOGLE_CLIENT_ID, // From .env
         });
         const payload = ticket.getPayload();
         console.log('Google user data:', payload);
@@ -30,5 +32,5 @@ app.post('/auth/google', async (req, res) => {
     }
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000; // Fallback to 3000 if PORT is not set
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

@@ -1,7 +1,8 @@
+
 document.getElementById('google-login').addEventListener('click', () => {
     // Initialize Google OAuth client
     const client = google.accounts.oauth2.initTokenClient({
-        client_id: '940299451426-3eqoo89edvkf42l00fs4dn5i5unis2dm.apps.googleusercontent.com', // Replace with your Client ID
+        client_id: process.env.GOOGLE_CLIENT_ID, // Retrieved from .env
         scope: 'email profile openid',
         callback: async (response) => {
             if (response.error) {
@@ -11,7 +12,7 @@ document.getElementById('google-login').addEventListener('click', () => {
             
             // Send token to backend
             try {
-                const res = await fetch('http://localhost:26543/storage/78F3-131C/work+%281%29/login/index.php', {
+                const res = await fetch(process.env.BACKEND_AUTH_ENDPOINT, { // Retrieved from .env
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ token: response.access_token }),

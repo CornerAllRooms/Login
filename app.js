@@ -1,30 +1,35 @@
-require('dotenv').config();
+require('dotenv').config(); // Load environment variables
 const express = require('express');
-const path = require('path');
 const { OAuth2Client } = require('google-auth-library');
-const mongoose = require('mongoose');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
-// Initialize app
 const app = express();
+app.use(cors()); // Allow frontend requests
+app.use(bodyParser.json());
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID); // From .env
 
-// Serve static files from public directory
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Body parser middleware
-app.use(express.json());
-
-// Google Auth Route
 app.post('/auth/google', async (req, res) => {
-  // ... [use the auth route implementation from previous examples] ...
+    const { token } = req.body;
+    try {
+        const ticket = await client.verifyIdToken({
+            idToken: token,
+            audience: process.env.GOOGLE_CLIENT_ID, // From .env
+        });
+        const payload = ticket.getPayload();
+        console.log('Google user data:', payload);
+        
+        // Save user to DB or create a session
+        // Example: Store in session
+        req.session.user = payload; // Requires express-session
+        
+        res.json({ success: true, user: payload });
+    } catch (error) {
+        console.error('Google token verification failed:', error);
+        res.status(400).json({ success: false, error: 'Invalid token' });
+    }
 });
 
-// Start server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});const mongoose = require('mongoose');
+const PORT = process.env.PORT || 3000; // Fallback to 3000 if PORT is not set
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
