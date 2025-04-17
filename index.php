@@ -1,13 +1,15 @@
 <?php
+// Start session at the very top
 session_start();
-include 'connect.php';
 
 // Only process login if form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_POST['password'])) {
+    include 'connect.php'; // Only include when needed
+    
     $email = $_POST['email'];
     $password = $_POST['password'];
     
-    // SECURITY NOTE: This should use prepared statements in production
+    // SECURITY NOTE: In production, use prepared statements
     $sql = "SELECT * FROM users WHERE email='$email'";
     $result = mysqli_query($conn, $sql);
     
@@ -18,18 +20,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
             $_SESSION['user_email'] = $user['email'];
             header("Location: homepage.php");
             exit();
-        } else {
-            $error = "Incorrect email or password";
         }
-    } else {
-        $error = "Incorrect email or password";
     }
+    // If we get here, login failed
+    $login_error = "Incorrect email or password";
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Add icon link -->
+    <!-- Your original head content -->
     <link rel="icon" href="logo.png" type="image/x-icon" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
 </head>
 <body>
 
-    <!-- Sign Up Container -->
+    <!-- Sign Up Container (unchanged from your original) -->
     <div class="container" id="signup" style="display:none;">
         <h1 class="form-title">Register</h1>
         <form method="post" action="register.php">
@@ -82,19 +82,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
     <!-- Sign In Container -->
     <div class="container" id="signIn">
         <h1 class="form-title">Sign In</h1>
-        <?php if (isset($error)): ?>
-            <div class="error-message"><?= htmlspecialchars($error) ?></div>
+        
+        <?php if (isset($login_error)): ?>
+            <div style="color: red; margin-bottom: 15px;"><?= $login_error ?></div>
         <?php endif; ?>
+        
         <form method="post" action="login.php">
             <div class="input-group">
                 <i class="fas fa-envelope"></i>
-                <input type="email" name="email" id="email" placeholder="Email" required>
+                <input type="email" name="email" id="login-email" placeholder="Email" required>
                 <label for="email"></label>
             </div>
             <div class="input-group">
                 <i class="fas fa-lock"></i>
-                <input type="password" name="password" id="signin-password" placeholder="Password" required>
-                <span class="password-toggle" onclick="togglePassword('signin-password')">
+                <input type="password" name="password" id="login-password" placeholder="Password" required>
+                <span class="password-toggle" onclick="togglePassword('login-password')">
                     <i class="fas fa-eye"></i>
                 </span>
                 <label for="password"></label>
@@ -105,7 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
             <input type="submit" class="btn" value="Sign In" name="signIn">
         </form>
         <p class="or">or</p>
-        
         <div class="icons">
             <i class="fab fa-google" id="google-login"></i>
             <i class="fab fa-facebook"></i>
@@ -124,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
     <script src="google2.js"></script>
     <script src="app.js"></script>
     <script src="facebook.js"></script>
-    <script src="auth.js"></script>                  
+    <script src="auth.js"></script>
 
     <!-- Facebook SDK -->
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
@@ -132,22 +133,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
     <!-- Google OAuth client library -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-    <!-- Firebase -->
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Load Firebase config from environment variables
-        const firebaseConfig = {
-            apiKey: "<%= process.env.VITE_FIREBASE_API_KEY %>",
-            authDomain: "<%= process.env.VITE_FIREBASE_AUTH_DOMAIN %>",
-            // Add other Firebase config parameters
-        };
-        
-        // Initialize Firebase if not already initialized
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }
-    });
-
+    // Password toggle function
     function togglePassword(inputId) {
         const passwordInput = document.getElementById(inputId);
         const toggleIcon = passwordInput.nextElementSibling.querySelector('i');
@@ -163,7 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
         }
     }
 
-    // Toggle between sign in and sign up forms
+    // Form toggle functionality
     document.getElementById('signUpButton').addEventListener('click', function() {
         document.getElementById('signIn').style.display = 'none';
         document.getElementById('signup').style.display = 'block';
@@ -173,6 +160,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
         document.getElementById('signup').style.display = 'none';
         document.getElementById('signIn').style.display = 'block';
     });
+
+    // Initialize Firebase if needed
+    if (typeof firebase !== 'undefined') {
+        const firebaseConfig = {
+            apiKey: "<%= process.env.VITE_FIREBASE_API_KEY %>",
+            authDomain: "<%= process.env.VITE_FIREBASE_AUTH_DOMAIN %>",
+            // Add other Firebase config parameters
+        };
+        
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+    }
     </script>
 </body>
 </html>
