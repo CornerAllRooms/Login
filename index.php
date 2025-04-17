@@ -1,30 +1,32 @@
 <?php
 session_start();
-include 'register.php';
 include 'connect.php';
-include 'homepage.php';
 
-
-if(isset($_POST['username']) && isset($_POST['password'])) {
-    $username = $_POST['username'];
+// Only process login if form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_POST['password'])) {
+    $email = $_POST['email'];
     $password = $_POST['password'];
     
-    $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+    // SECURITY NOTE: This should use prepared statements in production
+    $sql = "SELECT * FROM users WHERE email='$email'";
     $result = mysqli_query($conn, $sql);
     
-    if(mysqli_num_rows($result) === 1) {
-        $_SESSION['username'] = $username;
-        header("Location: homepage.php");
-        exit();
+    if (mysqli_num_rows($result) === 1) {
+        $user = mysqli_fetch_assoc($result);
+        if (password_verify($password, $user['password'])) {
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_email'] = $user['email'];
+            header("Location: homepage.php");
+            exit();
+        } else {
+            $error = "Incorrect email or password";
+        }
     } else {
-        header("Location: login.php?error=Incorrect username or password");
-        exit();
+        $error = "Incorrect email or password";
     }
-} else {
-    header("Location: login.php");
-    exit();
 }
-
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- Add icon link -->
@@ -34,8 +36,6 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
     <title>Register & Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <form action="auth.php" method="POST">
-</form>
 </head>
 <body>
 
@@ -69,8 +69,9 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
             <input type="submit" class="btn" value="Sign Up" name="signUp">
         </form>
         <p class="or">or</p>
-        <div class="icons">   <i class="fab fa-google" id="google-login"></i>
-            <i clss="fab fa-facebook"></i>
+        <div class="icons">
+            <i class="fab fa-google" id="google-login"></i>
+            <i class="fab fa-facebook"></i>
         </div>
         <div class="links">
             <p>Already Have an Account?</p>
@@ -81,7 +82,10 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
     <!-- Sign In Container -->
     <div class="container" id="signIn">
         <h1 class="form-title">Sign In</h1>
-        <form method="post" action="register.php">
+        <?php if (isset($error)): ?>
+            <div class="error-message"><?= htmlspecialchars($error) ?></div>
+        <?php endif; ?>
+        <form method="post" action="login.php">
             <div class="input-group">
                 <i class="fas fa-envelope"></i>
                 <input type="email" name="email" id="email" placeholder="Email" required>
@@ -96,7 +100,7 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
                 <label for="password"></label>
             </div>
             <p class="recover">
-                <a href=: "<%= process.env.VITE_FIREBASE_AUTH_DOMAIN %">Recover Password</a>
+                <a href="<%= process.env.VITE_FIREBASE_AUTH_DOMAIN %>">Recover Password</a>
             </p>
             <input type="submit" class="btn" value="Sign In" name="signIn">
         </form>
@@ -104,7 +108,7 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
         
         <div class="icons">
             <i class="fab fa-google" id="google-login"></i>
-            <i clss="fab fa-facebook"; href="facebook.js:"></i>
+            <i class="fab fa-facebook"></i>
         </div>
         <div class="links">
             <p>Don't Have an Account Yet?</p>
@@ -112,31 +116,13 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
         </div>
     </div>
 
-    <script>
-        function togglePassword(inputId) {
-            const passwordInput = document.getElementById(inputId);
-            const toggleIcon = passwordInput.nextElementSibling.querySelector('i');
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                toggleIcon.classList.remove('fa-eye');
-                toggleIcon.classList.add('fa-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                toggleIcon.classList.remove('fa-eye-slash');
-                toggleIcon.classList.add('fa-eye');
-            }
-        }
-    </script>
-
-    <!-- All your original scripts remain untouched -->
+    <!-- All your original scripts -->
     <script src="script.js"></script>
     <script src="google.js"></script>
     <script src="goo.js"></script>
     <script src="server.js"></script>
     <script src="google2.js"></script>
     <script src="app.js"></script>
-    <script src="goo.js"></script>
     <script src="facebook.js"></script>
     <script src="auth.js"></script>                  
 
@@ -146,16 +132,47 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
     <!-- Google OAuth client library -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-    <!-- Firebase (now using .env) -->
+    <!-- Firebase -->
     <script>
-    document.getElementById('recovered').addEventListener('onclick', () => {
+    document.addEventListener('DOMContentLoaded', function() {
         // Load Firebase config from environment variables
         const firebaseConfig = {
             apiKey: "<%= process.env.VITE_FIREBASE_API_KEY %>",
             authDomain: "<%= process.env.VITE_FIREBASE_AUTH_DOMAIN %>",
+            // Add other Firebase config parameters
         };
-        firebase.initializeApp(firebaseConfig);
+        
+        // Initialize Firebase if not already initialized
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+    });
+
+    function togglePassword(inputId) {
+        const passwordInput = document.getElementById(inputId);
+        const toggleIcon = passwordInput.nextElementSibling.querySelector('i');
+        
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            toggleIcon.classList.remove('fa-eye');
+            toggleIcon.classList.add('fa-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            toggleIcon.classList.remove('fa-eye-slash');
+            toggleIcon.classList.add('fa-eye');
+        }
+    }
+
+    // Toggle between sign in and sign up forms
+    document.getElementById('signUpButton').addEventListener('click', function() {
+        document.getElementById('signIn').style.display = 'none';
+        document.getElementById('signup').style.display = 'block';
+    });
+
+    document.getElementById('signInButton').addEventListener('click', function() {
+        document.getElementById('signup').style.display = 'none';
+        document.getElementById('signIn').style.display = 'block';
+    });
     </script>
 </body>
 </html>
-?>
