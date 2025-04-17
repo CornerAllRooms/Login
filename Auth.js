@@ -1,5 +1,5 @@
 
-document.getElementById('google-login').addEventListener('click', () => {
+document.getElementById('google-login').addEventListener('on-click', () => {
     // Initialize Google OAuth client
     const client = google.accounts.oauth2.initTokenClient({
         client_id: process.env.GOOGLE_CLIENT_ID, // Retrieved from .env
