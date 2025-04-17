@@ -2,12 +2,12 @@
 <?php
 session_start();
 include("connect.php");
-
+include("register.php");
 ?>
 <?php
 session_start();
 if (!isset($_SESSION['logged_in'])) {
-    header("Location: login/login.html"); // ← Fallback
+    header("Location: login.php"); // ← Fallback
     exit;
 }
 // Connects to dashboard
