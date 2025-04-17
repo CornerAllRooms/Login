@@ -1,7 +1,9 @@
-<!DOCTYPE html>
 <?php
 session_start();
-include 'db_conn.php';
+include 'register.php';
+include 'connect.php';
+include 'homepage.php';
+
 
 if(isset($_POST['username']) && isset($_POST['password'])) {
     $username = $_POST['username'];
