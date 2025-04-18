@@ -1,5 +1,5 @@
 // Google Login
-document.getElementById('google-Login').addEventListener('click', function () {
+document.getElementById('google-Login').addEventListener('onclick', function () {
     google.accounts.id.initialize({
         client_id: '940299451426-3eqoo89edvkf42l00fs4dn5i5unis2dm.apps.googleusercontent.com', // Replace with your Google Client ID
         callback: handleGoogleResponse,
