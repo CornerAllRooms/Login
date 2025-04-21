@@ -70,8 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
         </form>
         <p class="or">or</p>
         <div class="icons">
-            <i class="fab fa-google" onclick="toggleicons('fab fa-google')" id="google-login"></i>
-            <i clas="fab fa-faceok"></i>
+        <i class="fab fa-google" onclick="toggleicons('fab fa-google')" id="google-login"></i>
+        
         </div>
         <div class="links">
             <p>Already Have an Account?</p>
@@ -108,8 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
         </form>
         <p class="or">or</p>
         <div class="icons">
-            <i class="fab fa-google" onclick="toggleicons('fab fa-google')" id="google-login"></i>
-            <i clas="fab fa-facok"></i>
+         <i class="fab fa-google" id="google-login"></i>
         </div>
         <div class="links">
             <p>Don't Have an Account Yet?</p>
