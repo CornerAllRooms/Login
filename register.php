@@ -1,5 +1,11 @@
 <?php 
+// At the very top of register.php
+session_start();
 
+// After successful registration
+$_SESSION['email'] = $email;
+header("Location: homepage.php");
+exit();
 include 'connect.php';
 
 if(isset($_POST['signUp'])){
