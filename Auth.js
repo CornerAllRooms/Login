@@ -1,5 +1,21 @@
+// Configure Auth0
+const auth0 = new Auth0Client({
+  domain: 'your-auth0-domain.auth0.com',
+  client_id: 'your-client-id',
+  redirect_uri: window.location.origin
+});
 
-document.getElementById('google-login').addEventListener('on-click', () => {
+document.getElementById('google-login').addEventListener('click', async function() {
+  try {
+    await auth0.loginWithRedirect({
+      connection: 'google',
+      redirect_uri: window.location.origin + '/callback'
+    });
+  } catch (err) {
+    console.error('Login failed:', err);
+  }
+});
+document.getElementById('google-login').addEventListener('onclick', () => {
     // Initialize Google OAuth client
     const client = google.accounts.oauth2.initTokenClient({
         client_id: process.env.GOOGLE_CLIENT_ID, // Retrieved from .env
