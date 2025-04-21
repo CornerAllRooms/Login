@@ -1,7 +1,7 @@
 // Configure Auth0
 const auth0 = new Auth0Client({
-  domain: 'your-auth0-domain.auth0.com',
-  client_id: 'your-client-id',
+  domain: 'dev-mi2biixmcyz4wpxg.us.auth0.com',
+  client_id: process.env.GOOGLE_CLIENT_ID,
   redirect_uri: window.location.origin
 });
 
