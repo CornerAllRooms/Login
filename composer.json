@@ -1,4 +1,4 @@
-cat > composer.json << 'EOF'
+
 {
     "name": "molapi",
     "description": "MongoDB PHP Application",
@@ -19,4 +19,3 @@ cat > composer.json << 'EOF'
     }],
     "license": "MIT"
 }
-EOF
