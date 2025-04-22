@@ -6,8 +6,6 @@ cat > composer.json << 'EOF'
     "require": {
         "php": "^8.2",
         "ext-mongodb": "*",
-        "ext-date": "*",
-        "ext-json": "*",
         "mongodb/mongodb": "^1.15"
     },
     "config": {
@@ -15,12 +13,10 @@ cat > composer.json << 'EOF'
             "php": "8.2"
         }
     },
-    "authors": [
-        {
-            "name": "Molapi",
-            "email": "Cornerallrooms@gmail.com"
-        }
-    ],
+    "authors": [{
+        "name": "Molapi",
+        "email": "Cornerallrooms@gmail.com"
+    }],
     "license": "MIT"
 }
 EOF
