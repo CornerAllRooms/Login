@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Add icon link -->
     <link rel="icon" href="logo.png" type="image/x-icon" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register & Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <form action="auth.php" method="POST">
-</form>
 </head>
 <body>
+    <?php
+    // Start session and check if user is already logged in
+    session_start();
+    if (isset($_SESSION['user_id'])) {
+        header('Location: homepage.php');
+        exit;
+    }
+
+    // Display error messages if they exist
+    if (isset($_GET['error'])) {
+        echo '<div class="error-message">' . htmlspecialchars($_GET['error']) . '</div>';
+    }
+    ?>
 
     <!-- Sign Up Container -->
     <div class="container" id="signup" style="display:none;">
@@ -43,8 +53,8 @@
             <input type="submit" class="btn" value="Sign Up" name="signUp">
         </form>
         <p class="or">or</p>
-        <div class="icons">   <i class="fab fa-google" id="google-login"></i>
-            
+        <div class="icons">
+            <i class="fab fa-google" id="google-login" style="cursor: pointer;"></i>
         </div>
         <div class="links">
             <p>Already Have an Account?</p>
@@ -70,15 +80,14 @@
                 <label for="password"></label>
             </div>
             <p class="recover">
-                <a href=: "<%= process.env.VITE_FIREBASE_AUTH_DOMAIN %">Recover Password</a>
+                <a href="recover.php">Recover Password</a>
             </p>
             <input type="submit" class="btn" value="Sign In" name="signIn">
         </form>
         <p class="or">or</p>
-        
         <div class="icons">
-            <i class="fab fa-google" id="google-login"></i>
-              </div>
+            <i class="fab fa-google" id="google-login" style="cursor: pointer;"></i>
+        </div>
         <div class="links">
             <p>Don't Have an Account Yet?</p>
             <button id="signUpButton">Sign Up</button>
@@ -100,34 +109,38 @@
                 toggleIcon.classList.add('fa-eye');
             }
         }
+
+        // Toggle between sign up and sign in forms
+        document.getElementById('signUpButton').addEventListener('click', () => {
+            document.getElementById('signIn').style.display = 'none';
+            document.getElementById('signup').style.display = 'block';
+        });
+
+        document.getElementById('signInButton').addEventListener('click', () => {
+            document.getElementById('signup').style.display = 'none';
+            document.getElementById('signIn').style.display = 'block';
+        });
+
+        // Display error messages from URL parameters
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+            if (error) {
+                alert(error);
+            }
+        });
     </script>
 
-    <!-- All your original scripts remain untouched -->
+    <!-- Your original scripts -->
     <script src="script.js"></script>
     <script src="google.js"></script>
     <script src="goo.js"></script>
     <script src="server.js"></script>
     <script src="google2.js"></script>
     <script src="app.js"></script>
-    <script src="goo.js"></script>
-    <script src="facebook.js"></script>
-    <script src="auth.js"></script>                  
-
-    <!-- Facebook SDK -->
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+    <script src="auth.js"></script>
 
     <!-- Google OAuth client library -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-
-    <!-- Firebase (now using .env) -->
-    <script>
-    document.getElementById('recovered').addEventListener('onclick', () => {
-        // Load Firebase config from environment variables
-        const firebaseConfig = {
-            apiKey: "<%= process.env.VITE_FIREBASE_API_KEY %>",
-            authDomain: "<%= process.env.VITE_FIREBASE_AUTH_DOMAIN %>",
-        };
-        firebase.initializeApp(firebaseConfig);
-    </script>
 </body>
 </html>
