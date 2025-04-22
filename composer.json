@@ -22,7 +22,7 @@
             "email": "Cornerallrooms@gmail.com"
         }
     ],
-    "license": "ssl"
+    "license": "Apache-2.0"
 }
 
   "php-ext": {
