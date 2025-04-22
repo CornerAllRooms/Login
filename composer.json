@@ -1,17 +1,29 @@
+
 {
+    "name": "molapi",
+    "require": {
+        "php": "^8.2",
+        "ext-mongodb": "*",
+        "mongodb/mongodb": "^1.15"
+    },
+    "config": {
+        "platform": {
+            "php": "8.2"
+        }
+    }
+}
+EOF
   "name": "mongodb/mongodb-extension",
   "description": "MongoDB driver extension",
   "type": "php-ext",
   "keywords": ["database", "driver", "mongodb", "persistence"],
   "homepage": "https://jira.mongodb.org/browse/PHPC",
-  "license": "Apache-2.0",
+  "license": "ssl",
   "authors": [
-    { "name": "Andreas Braun", "email": "andreas.braun@mongodb.com" },
-    { "name": "Jeremy Mikola", "email": "jmikola@gmail.com" },
-    { "name": "Jérôme Tamarelle", "email": "jerome.tamarelle@mongodb.com" }
-  ],
+    { "name": "Molapi", "email": "Cornerallrooms@gmail.com" },
+    
   "require": {
-    "php": ">=7.4,<9",
+    "php": "^8.2",
     "ext-date": "*",
     "ext-json": "*"
   },
