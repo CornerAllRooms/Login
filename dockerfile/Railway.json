@@ -1,35 +1,21 @@
-composer.json composer.lock ./
-RUN composer install --no-dev --no-scripts
-COPY . .
 FROM php:8.2-apache
 
-# Install dependencies
+# Install MongoDB extension
 RUN apt-get update && \
     apt-get install -y \
+    libmongoc-dev \
+    libbson-dev \
     git \
-    unzip \
-    libzip-dev \
-    libmongoc-dev
+    unzip && \
+    pecl install mongodb && \
+    docker-php-ext-enable mongodb
 
-# Install PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql zip
-RUN pecl install mongodb && docker-php-ext-enable mongodb
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Set working directory
 WORKDIR /var/www/html
-
-# Copy files
 COPY . .
-
-# Install Composer dependencies
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN composer install --no-dev
-
-# Apache configuration
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
-RUN a2enmod rewrite
+RUN composer install --no-dev --ignore-platform-reqs
 
 EXPOSE 80
 CMD ["apache2-foreground"]
-EOF
