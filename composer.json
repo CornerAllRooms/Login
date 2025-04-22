@@ -1,3 +1,4 @@
+cat > composer.json << 'EOF'
 {
     "name": "molapi",
     "description": "MongoDB PHP Application",
@@ -12,9 +13,7 @@
     "config": {
         "platform": {
             "php": "8.2"
-        },
-        "optimize-autoloader": true,
-        "sort-packages": true
+        }
     },
     "authors": [
         {
@@ -22,62 +21,6 @@
             "email": "Cornerallrooms@gmail.com"
         }
     ],
-    "license": "Apache-2.0"
+    "license": "MIT"
 }
-
-  "php-ext": {
-    "extension-name": "mongodb",
-    "download-url-method": "pre-packaged-source",
-    "configure-options": [
-      {
-        "name": "enable-mongodb-developer-flags",
-        "description": "Enable developer flags",
-        "needs-value": true
-      },
-      {
-        "name": "enable-mongodb-coverage",
-        "description": "Enable code coverage",
-        "needs-value": true
-      },
-      {
-        "name": "with-mongodb-system-libs",
-        "description": "Use system libraries for libbson, libmongoc, and libmongocrypt",
-        "needs-value": true
-      },
-      {
-        "name": "with-mongodb-client-side-encryption",
-        "description": "Enable client-side encryption (auto/yes/no)",
-        "needs-value": true
-      },
-      {
-        "name": "with-mongodb-snappy",
-        "description": "Enable Snappy for compression (auto/yes/no)",
-        "needs-value": true
-      },
-      {
-        "name": "with-mongodb-zlib",
-        "description": "Enable zlib for compression (auto/system/bundled/no)",
-        "needs-value": true
-      },
-      {
-        "name": "with-mongodb-zstd",
-        "description": "Enable zstd for compression (auto/yes/no)",
-        "needs-value": true
-      },
-      {
-        "name": "with-mongodb-sasl",
-        "description": "Enable SASL for Kerberos authentication (auto/cyrus/no)",
-        "needs-value": true
-      },
-      {
-        "name": "with-mongodb-ssl",
-        "description": "Enable crypto and TLS (auto/openssl/libressl/darwin/no)",
-        "needs-value": true
-      },
-      {
-        "name": "enable-mongodb-crypto-system-profile",
-        "description": "Use system crypto profile (OpenSSL only) (yes/no)",
-        "needs-value": true
-      }
-    ]
-  }
+EOF
