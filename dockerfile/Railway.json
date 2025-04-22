@@ -1,21 +1,19 @@
+# Dockerfile
 FROM php:8.2-apache
 
-# Install MongoDB extension
+# 1. Install MongoDB support
 RUN apt-get update && \
     apt-get install -y \
+    libssl-dev \
     libmongoc-dev \
-    libbson-dev \
-    git \
-    unzip && \
+    libbson-dev && \
     pecl install mongodb && \
     docker-php-ext-enable mongodb
 
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# 2. Configure PHP
+RUN echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/mongodb.ini
 
+# 3. Deploy app
 WORKDIR /var/www/html
 COPY . .
 RUN composer install --no-dev --ignore-platform-reqs
-
-EXPOSE 80
-CMD ["apache2-foreground"]
