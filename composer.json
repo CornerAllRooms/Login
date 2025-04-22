@@ -1,32 +1,30 @@
-
 {
     "name": "molapi",
+    "description": "MongoDB PHP Application",
+    "type": "project",
     "require": {
         "php": "^8.2",
         "ext-mongodb": "*",
+        "ext-date": "*",
+        "ext-json": "*",
         "mongodb/mongodb": "^1.15"
     },
     "config": {
         "platform": {
             "php": "8.2"
+        },
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "authors": [
+        {
+            "name": "Molapi",
+            "email": "Cornerallrooms@gmail.com"
         }
-    }
+    ],
+    "license": "MIT"
 }
-EOF
-  "name": "mongodb/mongodb-extension",
-  "description": "MongoDB driver extension",
-  "type": "php-ext",
-  "keywords": ["database", "driver", "mongodb", "persistence"],
-  "homepage": "https://jira.mongodb.org/browse/PHPC",
-  "license": "ssl",
-  "authors": [
-    { "name": "Molapi", "email": "Cornerallrooms@gmail.com" },
-    
-  "require": {
-    "php": "^8.2",
-    "ext-date": "*",
-    "ext-json": "*"
-  },
+
   "php-ext": {
     "extension-name": "mongodb",
     "download-url-method": "pre-packaged-source",
