@@ -1,4 +1,4 @@
-'{
+{
   "build": {
     "nixpacks": {
       "provider": "nixpacks",
@@ -8,4 +8,4 @@
       }
     }
   }
-}' 
+}
