@@ -1,10 +1,9 @@
+
 {
   "build": {
     "nixpacks": {
-      "provider": "nixpacks",
-      "version": "latest",
       "config": {
-        "phpVersion": "8.2"
+        "phpVersion": "8.2" 
       }
     }
   }
