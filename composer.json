@@ -1,6 +1,5 @@
-
 {
-    "name": "molapi",
+    "name": "cornerallrooms/molapi",
     "description": "MongoDB PHP Application",
     "type": "project",
     "require": {
@@ -14,8 +13,8 @@
         }
     },
     "authors": [{
-        "name": "Molapi",
-        "email": "Cornerallrooms@gmail.com"
+        "name": "Your Name",
+        "email": "your@email.com"
     }],
     "license": "MIT"
 }
