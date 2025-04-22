@@ -1,8 +1,11 @@
-{
+echo '{
   "build": {
     "nixpacks": {
       "provider": "nixpacks",
-      "version": "latest"
+      "version": "latest",
+      "config": {
+        "phpVersion": "8.2"
+      }
     }
   }
-}
+}' > railway.json
