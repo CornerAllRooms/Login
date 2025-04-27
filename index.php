@@ -10,14 +10,12 @@
 </head>
 <body>
     <?php
-    // Start session and check if user is already logged in
     session_start();
-    if (isset($_SESSION['user_id'])) {
+    if (isset($_SESSION['user'])) {
         header('Location: homepage.php');
         exit;
     }
 
-    // Display error messages if they exist
     if (isset($_GET['error'])) {
         echo '<div class="error-message">' . htmlspecialchars($_GET['error']) . '</div>';
     }
@@ -27,6 +25,7 @@
     <div class="container" id="signup" style="display:none;">
         <h1 class="form-title">Register</h1>
         <form method="post" action="register.php">
+            <input type="hidden" name="signUp" value="1">
             <div class="input-group">
                 <i class="fas fa-user"></i>
                 <input type="text" name="fName" id="fName" placeholder="First Name" required>
@@ -50,7 +49,7 @@
                 </span>
                 <label for="password"></label>
             </div>
-            <input type="submit" class="btn" value="Sign Up" name="signUp">
+            <input type="submit" class="btn" value="Sign Up">
         </form>
         <p class="or">or</p>
         <div class="icons">
@@ -66,9 +65,10 @@
     <div class="container" id="signIn">
         <h1 class="form-title">Sign In</h1>
         <form method="post" action="register.php">
+            <input type="hidden" name="signIn" value="1">
             <div class="input-group">
                 <i class="fas fa-envelope"></i>
-                <input type="email" name="email" id="email" placeholder="Email" required>
+                <input type="email" name="email" id="login-email" placeholder="Email" required>
                 <label for="email"></label>
             </div>
             <div class="input-group">
@@ -80,9 +80,9 @@
                 <label for="password"></label>
             </div>
             <p class="recover">
-                <a href="recover.php">Recover Password</a>
+                <a href="recover-password.php">Recover Password</a>
             </p>
-            <input type="submit" class="btn" value="Sign In" name="signIn">
+            <input type="submit" class="btn" value="Sign In">
         </form>
         <p class="or">or</p>
         <div class="icons">
@@ -119,15 +119,6 @@
         document.getElementById('signInButton').addEventListener('click', () => {
             document.getElementById('signup').style.display = 'none';
             document.getElementById('signIn').style.display = 'block';
-        });
-
-        // Display error messages from URL parameters
-        document.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const error = urlParams.get('error');
-            if (error) {
-                alert(error);
-            }
         });
     </script>
 
