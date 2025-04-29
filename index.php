@@ -63,7 +63,7 @@
     <!-- Sign In Container -->
     <div class="container" id="signIn">
         <h1 class="form-title">Sign In</h1>
-        <form method="post" action="connect.php">
+        <form method="post" action="register.php">
             <input type="hidden" name="signIn" value="1">
             <div class="input-group">
                 <i class="fas fa-envelope"></i>
