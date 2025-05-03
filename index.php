@@ -52,7 +52,7 @@
         </form>
         <p class="or">or</p>
         <div class="icons">
-            <i class="fab fa-google" id="google-login" style="cursor: pointer;"></i>
+            <i class="fab fa-google" id="google-login" action="goo.js";></i>
         </div>
         <div class="links">
             <p>Already Have an Account?</p>
@@ -85,7 +85,7 @@
         </form>
         <p class="or">or</p>
         <div class="icons">
-            <i class="fab fa-google" id="google-login" style="cursor: pointer;"></i>
+            <i class="fab fa-google" id="google-login"action="goo.js";></i>
         </div>
         <div class="links">
             <p>Don't Have an Account Yet?</p>
