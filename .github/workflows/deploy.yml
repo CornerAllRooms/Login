@@ -23,4 +23,5 @@ jobs:
       # Step 3: Deploy to the Oracle Linux instance
       - name: Deploy to Oracle Linux
         run: |
-          ssh -o StrictHostKeyChecking=no opc@${{ secrets.SERVER_IP }} "bash /path/to/your/project/deploy.sh"
+          ssh -o StrictHostKeyChecking=no opc@${{ secrets.SERVER_IP }} "bash -c 'cd /path/to/your/app && git pull origin main && npm install && npm run build && pm2 restart all'"
+"
