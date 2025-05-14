@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['logged_in'])) {
-    header("Location: login/index.php"); // ← Fallback
+    header("Location: login/index.html"); // ← Fallback
     exit;
 }
 // Connects to dashboard
