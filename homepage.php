@@ -331,18 +331,19 @@ window.onload = function() {
 
 <div style="text-align:center; padding:15%;">
       <p  style="font-size:18px; font-weight:bold; color:white;">
-       Hello  <?php 
-       if(isset($_SESSION['email'])){
-        $email=$_SESSION['email'];
-        $query=mysqli_query($conn, "SELECT users.* FROM `users` WHERE users.email='$email'");
-        while($row=mysqli_fetch_array($query)){
-            echo $row['firstName'].' '.$row['lastName'];
-        }
-       }
-       ?>
-       ,enjoy fitness that's made easier. We are motivated to see quick results as much as you do
-      </p>
-      <a href="logout.php">Logout</a>
-    </div>
-</body>
-</html>
+       Hello <?php
+if(isset($_SESSION['email'])) {
+    $email = $_SESSION['email'];
+    
+    // MongoDB version
+    $filter = ['email' => $email];
+    $options = [];
+    
+    $query = $collection->find($filter, $options);
+    
+    foreach ($query as $document) {
+        echo $document['firstName'].' '.$document['lastName'];
+    }
+}
+?>
+<p>, enjoy fitness made easier. We are motivated to see quick results as much as you do</p>
