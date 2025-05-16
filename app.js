@@ -32,4 +32,4 @@ app.post('/auth/google', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000; // Fallback to 3000 if PORT is not set
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Server running on process.env.MONGODB_URI`));
