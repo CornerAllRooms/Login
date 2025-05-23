@@ -1,54 +1,238 @@
 <!DOCTYPE html>
 <html>
    <head>
-   
-   <!-- add icon link -->
-   <link rel="icon" href=
-   "logo.png"
-   type="image/x-icon" />
-      <rel = "stylesheet" href="style.css">
-      <body>
-
-<div class="background-image"></div>
-
-
-      </body>
-         <meta name="viewport"
-         content="width=device-width, initial-scale=1"> 
-
-
+      <link rel="icon" href="logo.png" type="image/x-icon" />
+      <title>AI-Trainer</title>
+      <link rel="stylesheet" href="style.css">
+      <meta name="viewport" content="width=device-width, initial-scale=1"> 
       <style>
-         *{
-               margin: 0;
-               padding: 0;
-
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
          }
+         
+         body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+         }
+         
          .background-image {
             background-image: url('./ground.png');
             background-size: cover;
             background-repeat: no-repeat;
             height: 28vh;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: -1;
+         }
+         
+         .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            padding: 20px;
+            z-index: 1;
+            margin-top: 30vh;
+            transform: scale(0.9);
+            transform-origin: top center;
+         }
+         
+         .form-box {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 27px;
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+         }
+         
+         /* Checkbox styles */
+         .terms-container {
+            margin: 18px 0;
+            position: relative;
+            z-index: 10;
+         }
+         
+         .terms-checkbox {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+         }
+         
+         .terms-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+         }
+         
+         .checkmark {
+            position: relative;
+            height: 16.2px;
+            width: 16.2px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 7.2px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+         }
+         
+         .terms-checkbox:hover .checkmark {
+            background-color: #f5f5f5;
+         }
+         
+         .terms-checkbox input:checked ~ .checkmark {
+            background-color: white;
+            border-color: black;
+         }
+         
+         .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 4.5px;
+            top: 1.8px;
+            width: 4.5px;
+            height: 8.1px;
+            border: solid #004b49;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            z-index: 2;
+         }
+         
+         .terms-checkbox input:checked ~ .checkmark:after {
+            display: block;
+         }
+         
+         /* Animation when checked */
+         .terms-checkbox input:checked ~ .checkmark::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, #004b49, white, transparent);
+            animation: glisten 0.5s linear;
+            transform: translateX(-100%);
+         }
+         
+         @keyframes glisten {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+         }
+         
+         .terms-text {
+            display: inline-block;
+            vertical-align: middle;
+            font-family: Arial, sans-serif;
+            color: #333;
+            font-size: 12.6px;
+         }
+         
+         .policy-link {
+            color: #0066cc;
+            text-decoration: none;
+         }
+         
+         .policy-link:hover {
+            text-decoration: underline;
+         }
+         
+         /* Button styles */
+         .subscribe-btn {
+            transition: opacity 0.3s;
+            margin-top: 13.5px;
+            width: 100%;
+            max-width: 180px;
+            height: auto;
+         }
+         
+         .subscribe-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+         }
+         
+         .titles {
+            color: #004b49;
+            text-align: center;
+            margin-top: 13.5px;
+            font-size: 12.6px;
+         }
+         
+         .links-container {
+            margin-top: 18px;
+            font-size: 12.6px;
+         }
+         
+         .links-container a {
+            font-size: inherit;
          }
       </style>
    </head>
-       <form name="PayFastPayNowForm" action="https://payment.payfast.io/eng/process" method="post">
-           <input required type="hidden" name="cmd" value="_paynow">
-         <input required type="hidden" name="receiver" pattern="[0-9]" value="23908197">
-          <input type="hidden" name="return_url" value="Https://cornerroom.co.za">
-<input type="hidden" name="cancel_url" value="Https://cornerroom.co.za">
-<input type="hidden" name="notify_url" value="Https://cornerroom.co.za/AITrainer/brBFoydeF">
-<input required type="hidden" name="amount" value="0.00">
-<input required type="hidden" name="item_name" maxlength="255" value="Ai Trainer">
-<input required type="hidden" name="subscription_type" pattern="1"value="1">
-<input type="hidden" name="recurring_amount" value="49.99">
-<input required type="hidden" name="cycles" pattern="[0-9]" value="0">
-<input required type="hidden" name="frequency" pattern="[0-9]" value="3">
-<table>
-<tr>
-   <td colspan=2 align="right">
-<input type="image" src="https://my.payfast.io/images/buttons/Subscribe/Light-Large-Subscribe.png" alt="Subscribe" title="Subscribe with Payfast"></td>
-<h1 class="titles" style="color:#004b49;" class="titles"style="text-align:bottom;">Powered By Payfast</h1>
-</tr>
-</table>
-</form>
+   <body>
+      <div class="background-image"></div>
+      
+      <div class="container">
+         <div class="form-box">
+            <form name="PayFastPayNowForm" action="https://payment.payfast.io/eng/process" method="post" onsubmit="return validateForm()">
+               <input required type="hidden" name="cmd" value="_paynow">
+               <input required type="hidden" name="receiver" pattern="[0-9]" value="23908197">
+               <input type="hidden" name="return_url" value="Https://cornerroom.co.za">
+               <input type="hidden" name="cancel_url" value="Https://cornerroom.co.za">
+               <input type="hidden" name="notify_url" value="Https://cornerroom.co.za/AITrainer/brBFoydeF">
+               <input required type="hidden" name="amount" value="0.00">
+               <input required type="hidden" name="item_name" maxlength="255" value="Ai Trainer">
+               <input required type="hidden" name="subscription_type" pattern="1" value="1">
+               <input type="hidden" name="recurring_amount" value="49.99">
+               <input required type="hidden" name="cycles" pattern="[0-9]" value="0">
+               <input required type="hidden" name="frequency" pattern="[0-9]" value="3">
+               
+               <div class="terms-container">
+                  <label class="terms-checkbox">
+                     <input type="checkbox" id="termsCheckbox">
+                     <span class="checkmark"></span>
+                     <span class="terms-text">I accept the goals and intent of the <a href="https://cornerroom.co.za/policy" class="policy-link" target="_blank">AI Fitness policy</a></span>
+                  </label>
+               </div>
+               
+               <div style="text-align: right;">
+                  <input type="image" id="subscribeBtn" src="https://my.payfast.io/images/buttons/Subscribe/Light-Large-Subscribe.png" alt="Subscribe" title="Subscribe with Payfast" class="subscribe-btn" disabled>
+               </div>
+               
+               <h1 class="titles">Powered By Payfast</h1>
+            </form>
+         </div>
+      </div>
+      
+      <script>
+         // Enable/disable button based on checkbox
+         const checkbox = document.getElementById('termsCheckbox');
+         const subscribeBtn = document.getElementById('subscribeBtn');
+         
+         checkbox.addEventListener('change', function() {
+            subscribeBtn.disabled = !this.checked;
+         });
+         
+         // Form validation
+         function validateForm() {
+            if (!checkbox.checked) {
+               alert('Please accept the AI Fitness policy to continue');
+               return false;
+            }
+            return true;
+         }
+      </script>
+   </body>
 </html>
