@@ -1,0 +1,24 @@
+# Environment variables
+.env
+.env.local
+
+# Node.js
+node_modules/
+npm-debug.log
+
+# MongoDB local files (if applicable)
+/data/
+*.mongodb
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build files (if using TypeScript/React)
+dist/
+build/
+*.js.map

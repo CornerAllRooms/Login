@@ -10,5 +10,5 @@ window.addEventListener('load', function() {
         loadingScreen.style.display = 'none';
         // Show the content
         content.style.display = 'block';
-    }, 8000); // 8000 milliseconds = 8 seconds
+    }, 3000); // 8000 milliseconds = 8 seconds
 });

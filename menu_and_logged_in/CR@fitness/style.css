@@ -1,154 +1,126 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
-
-hr {
-    margin: 0% !important;
-    border: 1px dashed #515151; /* Add dashed line */
-}
-
-/* Style for the GIF container */
-.gif-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px; /* Adds spacing between images */
-}
-/* Style for the images */
-.w-100 {
-    width: 525px; /* Fixed width */
-    height: 150px; /* Fixed height */
-    object-fit: cover; /* Crops the image to fit the dimensions */
-    object-position: top; /* Ensures the top part of the image is visible, cropping the bottom */
-    border: 5px solid #ff4739; /* Adds a border with the specified color */
-    border-radius: 8px; /* Optional: Adds rounded corners */
-    overflow: hidden;
-}
-
-{
-    font-family: 'Oswald', sans-serif;
-}
-
 body {
-    background-color: #e2e2e2;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(-45deg, #f5f5f5, #e0e0e0, #f5f5f5, #e0e0e0);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  overflow: hidden;
 }
 
-.container {
-    padding-top: 2vw;
-    padding-bottom: 2vw;
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-.footer, footer {
-    background-color: #ff4739; /* Updated theme color */
-    border: none;
-    height: 50vh;
+svg {
+  max-width: 90vw;
+  max-height: 90vh;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.1));
+  transition: transform 0.3s ease;
 }
 
-.logo {
-    width: 20%;
-    padding-left: 5vw;
-    margin-top: 2vh;
-    height: auto;
+svg:hover {
+  transform: scale(1.02);
 }
 
-@media screen and (max-width: 600px) {
-    .logo {
-        width: 50%;
-    }
+.body-map__muscle path {
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-.icon {
-    width: 80%;
-    height: auto;
-    filter: invert(100%);
+.body-map__muscle:hover path {
+  fill: #333 !important;
+  stroke: #333;
+  stroke-width: 1px;
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
 }
 
-@media screen and (max-width: 600px) {
-    .icon {
-        width: 60%;
-    }
+/* Front/Back muscle toggle effect */
+#hamstrings:hover ~ #quadriceps,
+#lowerback:hover ~ #abs,
+#glutes:hover ~ #abs,
+#lats:hover ~ #chest,
+#traps_middle:hover ~ #traps,
+#traps:hover ~ #traps_middle,
+#shoulders:hover ~ #shoulders,
+#triceps:hover ~ #biceps,
+#forearms:hover ~ #forearms,
+#calves:hover ~ #calves {
+  opacity: 0.3;
 }
 
-.centericon {
-    width: 20%;
-    height: auto;
-    background-color: transparent;
-    filter: invert(100%);
+/* Specific muscle group styling */
+#hamstrings, #quadriceps {
+  transition: opacity 0.4s ease;
 }
 
-@media screen and (max-width: 600px) {
-    .centericon {
-        width: 15%;
-    }
+#lowerback, #abs {
+  transition: opacity 0.4s ease;
 }
 
-.body-map__muscle path:hover {
-    fill: crimson;
+#glutes {
+  transition: opacity 0.4s ease;
 }
 
-.heading {
-    color: #ff4739; /* Updated theme color */
-    background-color: #e2e2e2 !important;
+#lats, #chest {
+  transition: opacity 0.4s ease;
 }
 
-.heading ol {
-    list-style: none;
-    counter-reset: steps;
+#traps_middle, #traps {
+  transition: opacity 0.4s ease;
 }
 
-.heading li {
-    background-color: white;
-    counter-increment: steps;
-    padding: 0.5em;
-    font-size: large;
-    border-style: outset;
-    margin: 0.5em;
-    position: relative;
-    padding-left: 1vw;
+#shoulders {
+  transition: opacity 0.4s ease;
 }
 
-@media screen and (max-width: 600px) {
-    .heading li {
-        font-size: medium;
-        padding-left: 5vw;
-    }
+#triceps, #biceps {
+  transition: opacity 0.4s ease;
 }
 
-.heading ol li::before {
-    top: 50%;
-    content: counter(steps);
-    border-radius: 500px;
-    background: #ff4739; /* Updated theme color */
-    position: absolute;
-    width: 3rem;
-    height: auto;
-    color: white;
-    text-align: center;
-    left: -45px;
-    line-height: 45px;
-    transform: translateY(-50%);
-    box-shadow: 0 0 3px rgb(0 0 0 / 40%), 
-                0 0 0 5px #f5f8fa, 
-                5px 0 2px rgb(0 0 0 / 60%);
+#forearms {
+  transition: opacity 0.4s ease;
 }
 
-@media screen and (max-width: 600px) {
-    .heading ol li::before {
-        width: 2.5rem;
-        left: -2rem;
-        line-height: 260%;
-    }
+#calves {
+  transition: opacity 0.4s ease;
 }
 
-@media screen and (max-width: 600px) {
-    svg {
-        width: 95% !important;
-    }
+/* Body outline styling */
+.body-map__model path {
+  fill: none;
+  stroke: #222;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-/* Fade-in effect for words while scrolling */
-.fade-in {
-    opacity: 0;
-    transition: opacity 0.6s ease-in-out;
+/* White elements styling */
+path[fill="white"] {
+  fill: #f8f8f8;
 }
 
-.fade-in.visible {
-    opacity: 1;
+/* Animation for the model */
+svg {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }

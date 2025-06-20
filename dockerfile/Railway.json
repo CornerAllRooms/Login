@@ -1,4 +1,7 @@
 cat > Dockerfile << 'EOF'
+composer.json composer.lock ./
+RUN composer install --no-dev --no-scripts
+COPY . .
 FROM php:8.2-apache
 
 # Install dependencies
