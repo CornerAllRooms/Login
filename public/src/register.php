@@ -6,6 +6,7 @@ require 'vendor/autoload.php';
 use Dotenv\Dotenv;
 use MongoDB\Client as MongoClient;
 use MongoDB\Collection;
+use MongoDB\BSON\UTCDateTime;
 
 // Load environment variables
 $dotenv = Dotenv::createImmutable(__DIR__);
@@ -49,13 +50,14 @@ class AuthHandler {
             $this->handleError("Email address already exists", 409);
         }
 
-        $result = $this->collection->insertOne([
-            ...$data,
-            'createdAt' => new MongoDB\BSON\UTCDateTime(),
-            'lastLogin' => null,
-            'role' => 'user',
-            'status' => 'active'
-        ]);
+       $result = $this->collection->insertOne([
+    ...$data,
+    'createdAt' => new UTCDateTime(), // Stores in UTC
+    'timezone' => 'Africa/Johannesburg', // Store the timezone
+    'lastLogin' => null,
+    'role' => 'user',
+    'status' => 'active'
+]);
 
         if ($result->getInsertedCount() === 1) {
             $this->startSession($data['email']);
