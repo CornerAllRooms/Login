@@ -1,5 +1,9 @@
 <?php
 declare(strict_types=1);
+session_start([
+    'cookie_secure' => true,
+    'cookie_httponly' => true
+]);
 
 // Set security headers
 header("X-Frame-Options: DENY");
