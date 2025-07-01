@@ -1,7 +1,10 @@
 <?php
-require __DIR__ . '/bootstrap.php';
+require __DIR__ . '/my-login-backend/bootstrap.php';
 session_start();
+define('ROOT_INCLUDED', true);
+require __DIR__.'/my-login-backend/auth-handler.php';
 
+(new AuthHandler())->handleRequest();
 if (isset($_SESSION['user'])) {
     header('Location: homepage.php');
     exit;
@@ -14,7 +17,7 @@ if (isset($_GET['error'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="logo.png" type="image/x-icon" />
+    <link rel="icon" href="/assets/logo.png" type="image/x-icon" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register & Login</title>
