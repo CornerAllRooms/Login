@@ -1,4 +1,41 @@
 <?php
+// PRODUCTION ERROR CONFIGURATION (place at top of index.php)
+error_reporting(E_ALL);  // Report all errors (but don't display them)
+ini_set('display_errors', '0');
+ini_set('display_startup_errors', '0');
+ini_set('log_errors', '1');
+
+// Secure error logging - store outside web root if possible
+$logPath = __DIR__ . '/../logs/php-errors.log';
+ini_set('error_log', $logPath);
+
+// Custom error handler for production
+set_error_handler(function($errno, $errstr, $errfile, $errline) {
+    $errorTypes = [
+        E_ERROR             => 'ERROR',
+        E_WARNING           => 'WARNING',
+        E_PARSE             => 'PARSE',
+        E_NOTICE            => 'NOTICE',
+        E_CORE_ERROR        => 'CORE_ERROR',
+        E_CORE_WARNING      => 'CORE_WARNING',
+        E_COMPILE_ERROR     => 'COMPILE_ERROR',
+        E_COMPILE_WARNING   => 'COMPILE_WARNING',
+        E_USER_ERROR        => 'USER_ERROR',
+        E_USER_WARNING      => 'USER_WARNING',
+        E_USER_NOTICE       => 'USER_NOTICE',
+        E_RECOVERABLE_ERROR => 'RECOVERABLE_ERROR',
+        E_DEPRECATED       => 'DEPRECATED',
+        E_USER_DEPRECATED   => 'USER_DEPRECATED'
+    ];
+    
+    $type = $errorTypes[$errno] ?? 'UNKNOWN';
+    error_log("[{$type}] {$errstr} in {$errfile} on line {$errline}");
+    
+    // Don't expose errors to users
+    http_response_code(500);
+    include __DIR__.'/500.html'; // Custom error page
+    return true;
+});
 session_start();
 define('ROOT_INCLUDED', true);
 require __DIR__.'/my-login-backend/auth-handler.php';
@@ -12,6 +49,10 @@ if (isset($_SESSION['user'])) {
 if (isset($_GET['error'])) {
     $error_message = htmlspecialchars($_GET['error']);
 }
+$app_key = bin2hex(random_bytes(16)); // Generate a random 32-byte key and encode it in base64
+$app_key = 'base64:'.base64_encode(random_bytes(32));
+
+echo $app_key;
 ?>
 <!DOCTYPE html>
 <html lang="en">

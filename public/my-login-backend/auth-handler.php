@@ -1,21 +1,13 @@
 <?php
 declare(strict_types=1);
 
-require __DIR__ . '/vendor/autoload.php';
-
-use Dotenv\Dotenv;
-use MongoDB\Client as MongoClient;
-use MongoDB\BSON\UTCDateTime;
+require __DIR__.'/bootstrap.php';
 
 final class AuthHandler {
     private $collection;
     
-    public function __construct() {
-        $dotenv = Dotenv::createImmutable(__DIR__);
-        $dotenv->load();
-        
-        $this->collection = (new MongoClient($_ENV['MONGODB_URI']))
-            ->selectCollection('roomie13', 'users');
+    public function __construct(MongoDB\Client $mongoClient) {
+        $this->collection = $mongoClient->selectCollection('roomie13', 'users');
     }
 
     public function handleRequest(): void {
@@ -41,9 +33,11 @@ final class AuthHandler {
         }
 
         $this->collection->insertOne([
-            ...$data,
+            'firstName' => $data['firstName'],
+            'lastName' => $data['lastName'],
+            'email' => $data['email'],
             'password' => password_hash($data['password'], PASSWORD_BCRYPT),
-            'createdAt' => new UTCDateTime(),
+            'createdAt' => new MongoDB\BSON\UTCDateTime(),
             'lastLogin' => null,
             'failedAttempts' => 0,
             'status' => 'active'
@@ -58,37 +52,28 @@ final class AuthHandler {
         $user = $this->collection->findOne(['email' => $email]);
 
         if (!$user || !password_verify($_POST['password'], $user['password'])) {
-            $this->collection->updateOne(
-                ['_id' => $user['_id'] ?? null],
-                ['$inc' => ['failedAttempts' => 1]]
-            );
+            if ($user) {
+                $this->collection->updateOne(
+                    ['_id' => $user['_id']],
+                    ['$inc' => ['failedAttempts' => 1]]
+                );
+            }
             throw new RuntimeException('Invalid credentials', 401);
         }
 
         $this->createSession($email);
         $this->collection->updateOne(
             ['_id' => $user['_id']],
-            ['$set' => ['lastLogin' => new UTCDateTime()]]
+            ['$set' => ['lastLogin' => new MongoDB\BSON\UTCDateTime()]]
         );
 
         echo json_encode(['success' => true]);
     }
 
     private function createSession(string $email): void {
-        session_name($_ENV['SESSION_NAME']);
-        session_set_cookie_params([
-            'lifetime' => (int)$_ENV['SESSION_LIFETIME'],
-            'path' => '/',
-            'secure' => ($_ENV['APP_ENV'] === 'production'),
-            'httponly' => true,
-            'samesite' => 'Lax'
-        ]);
-        
-        session_start();
         session_regenerate_id(true);
-        
         $_SESSION = [
-            'user_id' => (string)$user['_id'],
+            'user_id' => (string)$user['_id'] ?? '',
             'email' => $email,
             'ip' => $_SERVER['REMOTE_ADDR'],
             'ua' => $_SERVER['HTTP_USER_AGENT'],
@@ -130,4 +115,4 @@ final class AuthHandler {
     }
 }
 
-(new AuthHandler())->handleRequest();
+(new AuthHandler($mongoClient))->handleRequest();
