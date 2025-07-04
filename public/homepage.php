@@ -29,7 +29,7 @@ $dotenv->load();
 
 // Generate secure app key
 $app_key = 'base64:' . base64_encode(random_bytes(32));
-?>
+
 try {
     $mongoClient = new MongoDB\Client(
         $_ENV['MONGODB_URI'],
@@ -53,6 +53,7 @@ try {
     include __DIR__.'/500.html';
     exit;
 }
+?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -84,7 +85,7 @@ try {
             height: 100%;
             background-size: cover;
             background-position: center;
-            background-image: url('/assets'); /* Replace with your image path */
+            background-image: url('/assets/header.jpg'); /* Replace with your image path */
         }
 
         .header-background::after {
@@ -184,29 +185,36 @@ try {
     </div>
 
     <!-- Content Wrapper with #44444A background -->
-    <div class="content-wrapper">
-        <!-- Welcome Message Section -->
-        <div class="welcome-container">
-            <p class="welcome-message">
-                Hello <?php
-                if(isset($_SESSION['email'])) {
-                    $email = $_SESSION['email'];
-                    $filter = ['email' => $email];
-                    $options = [];
-                    $query = $collection->find($filter, $options);
+<div class="content-wrapper">
+    <!-- Welcome Message Section -->
+    <div class="welcome-container">
+        <p class="welcome-message">
+            Hello <?php
+            // Simple MongoDB fetch using your existing connection pattern
+            $client = new MongoDB\Client(
+                $_ENV['MONGODB_URI'],
+                [
+                    'tls' => true,
+                    'retryWrites' => true,
+                    'w' => 'majority'
+                ]
+            );
+            $collection = $client->selectCollection('roomie13', 'users');
+            $user = $collection->findOne(['email' => $_SESSION['user']['email']]);
 
-                    foreach ($query as $document) {
-                        echo $document['firstName'].' '.$document['lastName'];
-                    }
-                }
-                ?>,
-                enjoy fitness made easier. We are motivated to see quick results as much as you do
-            </p>
-        </div>
-
+            if ($user) {
+                  echo htmlspecialchars($user['firstName'], ENT_QUOTES);
+            } else {
+                echo 'Roomie'; // Fallback if user not found
+            }
+            ?>,
+            enjoy fitness made easier. We are motivated to see quick results as much as you do
+        </p>
+    </div>
+</div>
         <!-- Homepage Button -->
         <div class="homepage-btn-container">
-            <a href="/menu_and_logged_in/log_out.html" class="homepage-btn">HOMEPAGE</a>
+            <a href="/menu_and_logged_in/log_in.html" class="homepage-btn">HOMEPAGE</a>
         </div>
     </div>
 

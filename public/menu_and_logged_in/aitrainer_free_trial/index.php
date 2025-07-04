@@ -1,27 +1,58 @@
-   <?php
-// Start session and check authentication
-session_start();
+<?php
+// Strict error reporting
+declare(strict_types=1);
+ini_set('display_errors', 0);
+error_reporting(E_ALL);
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/../logs/php-errors.log');
 
-// Redirect to login if not authenticated
-if (!isset($_SESSION['logged_in'])) {
-    header('Location: index.php');
-    exit();
+// Secure session initialization
+session_start([
+    'name' => 'SecureSession',
+    'cookie_lifetime' => 86400,
+    'cookie_secure' => true,
+    'cookie_httponly' => true,
+    'cookie_samesite' => 'Strict',
+    'use_strict_mode' => true,
+    'use_only_cookies' => 1
+]);
+
+// CSRF token generation
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
-// Connect to MongoDB
-require 'vendor/autoload.php';
-$client = new MongoDB\Client($_ENV['MONGODB_URI']);
-$collection = $client->roomie13->roomie;
-$user = $collection->findOne(['email' => $_SESSION['email']]);
+// Environment variables
+require __DIR__.'/../vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__.'/..');
+$dotenv->load();
 
-if (!$user) {
-    session_destroy();
-    header('Location: index.php');
-    exit();
+// Generate secure app key
+$app_key = 'base64:' . base64_encode(random_bytes(32));
+
+try {
+    $mongoClient = new MongoDB\Client(
+        $_ENV['MONGODB_URI'],
+        [
+            'tls' => true,
+            'retryWrites' => true,
+            'w' => 'majority'
+        ]
+    );
+    $collection = $mongoClient->selectCollection('roomie13', 'users');
+    $user = $collection->findOne(['email' => $_SESSION['user']['email']]);
+
+    if (!$user) {
+        session_destroy();
+        header("Location: /index.php?error=User not found");
+        exit;
+    }
+} catch (Exception $e) {
+    error_log('Database Error: ' . $e->getMessage());
+    http_response_code(500);
+    include __DIR__.'/500.html';
+    exit;
 }
-
-// Get first name from user data
-$fname = isset($user['fname']) ? $user['fname'] : '';
 ?>
 <!DOCTYPE html>
 <html>
@@ -46,7 +77,7 @@ $fname = isset($user['fname']) ? $user['fname'] : '';
         }
         
         .background-image {
-            background-image: url('./ground.png');
+            background-image: url('/ground.svg');
             background-size: cover;
             background-repeat: no-repeat;
             height: 28vh;
@@ -386,7 +417,7 @@ $fname = isset($user['fname']) ? $user['fname'] : '';
             
             <div class="security-info">
                 <div class="security-toggle" id="securityToggle">
-                    <img src="payfast.png" alt="PayFast">
+                    <img src="/payfast.svg" alt="PayFast">
                     <span id="toggleText">More details ↓</span>
                 </div>
                 <div class="security-details" id="securityDetails">

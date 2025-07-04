@@ -1,0 +1,54 @@
+# Query:  <link rel="shortcut icon" href="TitleLogo.ico">
+# ContextLines: 1
+
+10 results - 10 files
+
+public\menu_and_logged_in\CR@fitness\Chest.html:
+  7      <title>Chest-</title>
+  8:     <link rel="shortcut icon" href="logo.png">
+  9      <link rel="stylesheet" href="style.css">
+
+public\menu_and_logged_in\CR@fitness\Forearms.html:
+  7      <title>Forearms</title>
+  8:     <link rel="shortcut icon" href="logo">
+  9      <link rel="stylesheet" href="style.css">
+
+public\menu_and_logged_in\CR@fitness\Glutes.html:
+  7      <title>Glutes</title>
+  8:     <link rel="shortcut icon" href="logo.png">
+  9      <link rel="stylesheet" href="style.css">
+
+public\menu_and_logged_in\CR@fitness\Hamstrings.html:
+  7      <title>Hamstrings</title>
+  8:     <link rel="shortcut icon" href="logo.png">
+  9      <link rel="stylesheet" href="style.css">
+
+public\menu_and_logged_in\CR@fitness\Lats.html:
+  7      <title>Lats</title>
+  8:     <link rel="shortcut icon" href="logo.png">
+  9      <link rel="stylesheet" href="style.css">
+
+public\menu_and_logged_in\CR@fitness\Obliques.html:
+  7      <title>Obliques-</title>
+  8:     <link rel="shortcut icon" href="logo.png">
+  9      <link rel="stylesheet" href="style.css">
+
+public\menu_and_logged_in\CR@fitness\Quads.html:
+  7      <title>Quads</title>
+  8:     <link rel="shortcut icon" href="logo.png">
+  9      <link rel="stylesheet" href="style.css">
+
+public\menu_and_logged_in\CR@fitness\Shoulder.html:
+  7      <title>Shoulders</title>
+  8:     <link rel="shortcut icon" href="logo.png">
+  9      <link rel="stylesheet" href="style.css">
+
+public\menu_and_logged_in\CR@fitness\Traps(Mid-back).html:
+  7      <title>Traps-Mid-Back</title>
+  8:     <link rel="shortcut icon" href="logo.png">
+  9      <link rel="stylesheet" href="style.css">
+
+public\menu_and_logged_in\CR@fitness\Triceps.html:
+  7      <title>Triceps</title>
+  8:     <link rel="shortcut icon" href="logo.png">
+  9      <link rel="stylesheet" href="style.css">

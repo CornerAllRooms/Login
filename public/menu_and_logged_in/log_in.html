@@ -63,8 +63,12 @@ initial-scale=1.0">
     
     <!-- Loading Screen -->
     <div id="loading-screen">
-        <img src="load.gif" alt="Loading...">
-    </div>
+    <!-- For mobile/tablets (shows GIF) -->
+    <img src="/assets/load.gif" alt="Loading..." class="mobile-loader">
+    
+    <!-- For laptops (shows CSS spinner) -->
+    <div class="spinner"></div>
+</div>
 
     <!-- Your Content -->
     <div id="content">
@@ -84,7 +88,7 @@ initial-scale=1.0">
             <ul>
                    <li><a href="https://Cornerroom.co.za/saferoom">Contact</a></li>
                 <li><a href="https://Cornerroom.zo.za/privacy">Privacy</a></li>
-                <li><a href="Aitrainer_free_trial/index.php">AI Trainer</a></li>
+                <li><a href="/aitrainer_free_trial/index.php">AI Trainer</a></li>
                 <li><a href="https://Cornerroom.co.za/Lobby">Go To Lobby</a></li>
                     
                        
@@ -186,7 +190,7 @@ register_page_widgets(document.getElementById('pdf-page-3'));
 
   <div class="button-container">
   <a href="https://cornerroom.co.za/aichat" class="video-button">Get Support</a>
-  <a href="Aitrainer_free_trial/index.php" class="video-button">AI Trainer</a>
+  <a href="/aitrainer_free_trial/index.php" class="video-button">AI Trainer</a>
   <a href="https://cornerroom.co.za/aiabout" class="video-button">About</a></div>
   </div>
   <!--end of video-button-->
