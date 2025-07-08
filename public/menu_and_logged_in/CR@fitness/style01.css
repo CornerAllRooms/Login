@@ -110,17 +110,15 @@ svg:hover {
 path[fill="white"] {
   fill: #f8f8f8;
 }
-
+background[fill="white"] {
+  fill: ;
+}
 /* Animation for the model */
 svg {
+  bottom: 0px;
+  top: 0px;
+  right: 0px;
+  left: -50px;
+  position: relative;
   animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
 }
